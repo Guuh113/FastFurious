@@ -1,30 +1,32 @@
-
 package br.com.gustavo.FastandFuriousFood.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Pedido {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
-  
     private LocalDateTime dataCriacao = LocalDateTime.now();
-    
+
     private String nome;
     private BigDecimal preco;
-    private String categoria;
-    
 
     public Long getId() {
         return id;
@@ -73,4 +75,22 @@ public class Pedido {
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
+
+    public List<ItensPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItensPedido> itens) {
+        this.itens = itens;
+    }
+    private String categoria;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<ItensPedido> itens = new ArrayList<>();
+    
+    public void adicionarItem(ItensPedido item){
+        this.itens.add(item);
+        item.setPedido(this);
+    }
 }
+    

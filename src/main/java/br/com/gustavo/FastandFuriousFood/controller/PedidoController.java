@@ -1,6 +1,7 @@
 
 package br.com.gustavo.FastandFuriousFood.controller;
 
+import br.com.gustavo.FastandFuriousFood.model.ItensPedido;
 import br.com.gustavo.FastandFuriousFood.model.Pedido;
 import br.com.gustavo.FastandFuriousFood.model.StatusPedido;
 import br.com.gustavo.FastandFuriousFood.repository.PedidoRepository;
@@ -16,13 +17,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/fastforious/pedido")
+@RequestMapping("/pedido")
 public class PedidoController {
     @Autowired
     private PedidoRepository repository;
 @PostMapping
     public Pedido realizarPedido(@RequestBody Pedido pedido){
         pedido.setStatus(StatusPedido.ABERTO);
+        
+        if(pedido.getItens() != null){
+            for(ItensPedido item: pedido.getItens()){
+                
+            }
+        }
         return repository.save(pedido);
     }
     @GetMapping
