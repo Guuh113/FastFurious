@@ -1,5 +1,6 @@
 package br.com.gustavo.FastandFuriousFood.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Pedido {
 
@@ -87,10 +89,21 @@ public class Pedido {
     @JsonManagedReference
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItensPedido> itens = new ArrayList<>();
-    
-    public void adicionarItem(ItensPedido item){
+
+    public void adicionarItem(ItensPedido item) {
         this.itens.add(item);
         item.setPedido(this);
     }
+
+    public Pedido() {
+    }
+
+    public Pedido(Long id, StatusPedido status, String nome, BigDecimal preco, String categoria) {
+        this.id = id;
+        this.status = status;
+        this.nome = nome;
+        this.preco = preco;
+        this.categoria = categoria;
+    }
+
 }
-    

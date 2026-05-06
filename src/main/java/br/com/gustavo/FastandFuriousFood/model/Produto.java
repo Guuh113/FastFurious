@@ -15,7 +15,7 @@ import java.math.BigDecimal;
  * @author sesi3dia
  */
 @Entity
-class Produto {
+    public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -64,4 +64,17 @@ class Produto {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    public Produto() {
+    }
+
+    public Produto(Long id, String nome, String descricao, BigDecimal preco, String categoria) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.categoria = categoria;
+    }
+    
+    
 }

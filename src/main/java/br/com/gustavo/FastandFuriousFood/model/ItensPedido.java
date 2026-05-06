@@ -29,6 +29,18 @@ public class ItensPedido {
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
+    
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
+    private Produto produto; 
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 
     public Long getId() {
         return id;
